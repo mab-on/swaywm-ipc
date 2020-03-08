@@ -1,0 +1,8 @@
+*
+!*.d
+!*/
+!.gitignore
+!dub.json
+!README.md
+!LICENSE
+.dub

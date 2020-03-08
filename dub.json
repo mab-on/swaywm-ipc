@@ -1,0 +1,11 @@
+{
+	"name": "swaywm-ipc",
+	"description": "IPC Client for swaywm",
+	"license": "MIT",
+	"authors": [
+		"Martin Brzenska"
+	],
+	"copyright": "Copyright © 2020, Martin Brzenska",
+
+	"targetType": "library"
+}

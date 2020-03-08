@@ -1,0 +1,7 @@
+{
+	"name": "example",
+	"description": "client usage example",
+	"dependencies": {
+        "swaywm-ipc": {"path": "../../"}
+    }
+}
