@@ -3,11 +3,10 @@ module swaywmipc.client.event.common;
 import std.json;
 import swaywmipc.core;
 
-class Event {
+struct Event {
 	private
 		PayloadType _type;
 		JSONValue _payload;
-
 
 	this(PayloadType type) {
 		this._type = type;
@@ -32,14 +31,12 @@ class Event {
 	}
 }
 
-Message NewSubscribeMessage(Event[] events) {
-	import std.algorithm : map;
-	import std.array : join;
-
-	auto msg = Message();
-	msg.type = PayloadType.SUBSCRIBE;
-
-	msg.payload = "[" ~ events.map!(e => '"'~e.name()~'"').join(",") ~ "]";
-
-	return msg;
-}
+Event WindowEvent() { return Event(PayloadType.window); }
+Event WorkspaceEvent() { return Event(PayloadType.workspace); }
+Event ModeEvent() { return Event(PayloadType.mode); }
+Event BarconfigUpdateEvent() { return Event(PayloadType.barconfig_update); }
+Event BindingEvent() { return Event(PayloadType.binding); }
+Event ShutdownEvent() { return Event(PayloadType.shutdown); }
+Event TickEvent() { return Event(PayloadType.tick); }
+Event BarStateUpdateEvent() { return Event(PayloadType.bar_state_update); }
+Event InputEvent() { return Event(PayloadType.input); }

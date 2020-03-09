@@ -1,4 +1,4 @@
-module swaywmipc.client.command.common;
+module swaywmipc.client.message.command;
 import swaywmipc.core;
 
 struct Response {
@@ -21,12 +21,12 @@ Message makeMessage(Command[] cmd) {
 	return msg;
 }
 
-class Command {
+struct Command {
 	private
 		string cmd;
 		string[] args;
 
-	this(string cmd, string[] args) {
+	this(string cmd, string[] args...) {
 		import std.algorithm : map;
 		import std.array : array;
 		import std.string : strip, toLower;
@@ -35,7 +35,7 @@ class Command {
 		this.args = args.map!( a => a.strip().toLower() ).array;
 	};
 
-	override const string toString() {
+	string toString() {
 		import std.algorithm : map;
 		import std.array : join;
 		import std.format : format;
