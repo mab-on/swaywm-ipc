@@ -3,21 +3,20 @@ module swaywmipc.client.event.common;
 import std.json;
 import swaywmipc.core;
 
-struct Event {
+abstract class Event {
 	private
-		PayloadType _type;
+		EventType _type;
 		JSONValue _payload;
 
-	this(PayloadType type) {
+	this(EventType type, JSONValue payload) {
 		this._type = type;
-	}
-
-	this(PayloadType type, JSONValue payload) {
-		this(type);
 		this._payload = payload;
+		this.unserialize(this._payload);
 	}
 
-	PayloadType type() {
+	abstract void unserialize(JSONValue payload);
+
+	EventType type() {
 		return this._type;
 	}
 
@@ -31,12 +30,26 @@ struct Event {
 	}
 }
 
-Event WindowEvent() { return Event(PayloadType.window); }
-Event WorkspaceEvent() { return Event(PayloadType.workspace); }
-Event ModeEvent() { return Event(PayloadType.mode); }
-Event BarconfigUpdateEvent() { return Event(PayloadType.barconfig_update); }
-Event BindingEvent() { return Event(PayloadType.binding); }
-Event ShutdownEvent() { return Event(PayloadType.shutdown); }
-Event TickEvent() { return Event(PayloadType.tick); }
-Event BarStateUpdateEvent() { return Event(PayloadType.bar_state_update); }
-Event InputEvent() { return Event(PayloadType.input); }
+struct Rect {
+	size_t x;
+	size_t y;
+	size_t width;
+	size_t height;
+
+	this (JSONValue json) {
+		if( const(JSONValue)* x = "x" in json ) this.x = x.integer;
+		if( const(JSONValue)* y = "y" in json ) this.y = y.integer;
+		if( const(JSONValue)* width = "width" in json ) this.width = width.integer;
+		if( const(JSONValue)* height = "height" in json ) this.height = height.integer;
+	}
+}
+
+//Event WindowEvent() { return Event(EventType.window); }
+
+//Event ModeEvent() { return Event(EventType.mode); }
+//Event BarconfigUpdateEvent() { return Event(EventType.barconfig_update); }
+//Event BindingEvent() { return Event(EventType.binding); }
+//Event ShutdownEvent() { return Event(EventType.shutdown); }
+//Event TickEvent() { return Event(EventType.tick); }
+//Event BarStateUpdateEvent() { return Event(EventType.bar_state_update); }
+//Event InputEvent() { return Event(EventType.input); }

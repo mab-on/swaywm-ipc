@@ -12,7 +12,7 @@ class Client {
 	private Socket event_socket;
 
 	private Tid event_listener;
-	private shared(void function(Message msg)[PayloadType]) functionsByEvent;
+	private shared(void function(Message msg)[EventType]) functionsByEvent;
 
 	this() {
 		import std.process : executeShell;
@@ -41,13 +41,14 @@ class Client {
 		return Response(reply);
 	}
 
-	Response subscribe(Event event , void function(Message msg) fn) {
+	Response subscribe(EventType event , void function(Message msg) fn) {
 		return subscribe([event], fn);
 	}
-	Response subscribe(Event[] events , void function(Message msg) fn) {
+	Response subscribe(EventType[] events , void function(Message msg) fn) {
 		import core.time;
 		import std.algorithm : map;
 		import std.array : join;
+		import std.conv : to;
 		static import std.socket;
 
 		if( ! this.event_socket ) {
@@ -61,7 +62,7 @@ class Client {
 
 		Message subscribe;
 		subscribe.type = PayloadType.SUBSCRIBE;
-		subscribe.payload = "[" ~ events.map!(e => '"'~e.name()~'"').join(",") ~ "]";
+		subscribe.payload = "[" ~ events.map!(event => '"'~ event.to!string ~'"').join(",") ~ "]";
 
 		this.event_socket.send(subscribe);
 		Message reply;
@@ -69,8 +70,8 @@ class Client {
 
 		auto response = Response(reply);
 
-		foreach(Event event ; events) {
-			this.functionsByEvent[event.type()] = fn;
+		foreach(EventType event ; events) {
+			this.functionsByEvent[event] = fn;
 		}
 
 
@@ -92,7 +93,7 @@ class Client {
 private struct CancelListener {}
 private void listener(
 	shared(Socket) shared_eventSocket,
-	shared(void function(Message msg)[PayloadType]) functionsByEvent
+	shared(void function(Message msg)[EventType]) functionsByEvent
 ) {
 	import core.time;
 	static import std.socket;
@@ -104,8 +105,8 @@ private void listener(
 
 		Message msg;
 		if(event_socket.receive(msg)) {
-			if(msg.type in functionsByEvent) {
-				functionsByEvent[ cast(PayloadType)msg.type ](msg);
+			if(cast(EventType)msg.type in functionsByEvent) {
+				functionsByEvent[ cast(EventType)msg.type ](msg);
 			}
 		}
 		receiveTimeout(-1.seconds,

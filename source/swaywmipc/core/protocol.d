@@ -5,6 +5,18 @@ import swaywmipc.core.socket;
 
 enum MAGIC_STRING = "i3-ipc";
 
+enum EventType : uint {
+	workspace = 0x80000000,
+	mode = 0x80000002,
+	window = 0x80000003,
+	barconfig_update = 0x80000004,
+	binding = 0x80000005,
+	shutdown = 0x80000006,
+	tick = 0x80000007,
+	bar_state_update = 0x80000014,
+	input = 0x80000015
+}
+
 enum PayloadType : uint {
 	RUN_COMMAND = 0,
 	GET_WORKSPACES = 1,
@@ -22,15 +34,15 @@ enum PayloadType : uint {
 	GET_SEATS = 101,
 
 	//Events
-	workspace = 0x80000000,
-	mode = 0x80000002,
-	window = 0x80000003,
-	barconfig_update = 0x80000004,
-	binding = 0x80000005,
-	shutdown = 0x80000006,
-	tick = 0x80000007,
-	bar_state_update = 0x80000014,
-	input = 0x80000015
+	workspace = EventType.workspace,
+	mode = EventType.mode,
+	window = EventType.window,
+	barconfig_update = EventType.barconfig_update,
+	binding = EventType.binding,
+	shutdown = EventType.shutdown,
+	tick = EventType.tick,
+	bar_state_update = EventType.bar_state_update,
+	input = EventType.input
 }
 
 struct Message {
