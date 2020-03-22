@@ -1,11 +1,15 @@
 module swaywmipc.client.client;
 
-import swaywmipc.client.message;
 import swaywmipc.client.event;
+import swaywmipc.client.message;
 import swaywmipc.core;
 
-import std.stdio;
+import std.algorithm : map;
+import std.array : array;
 import std.concurrency;
+import std.json : parseJSON, JSONValue;
+import std.process : executeShell;
+import std.string : strip;
 
 class Client {
 	private Socket cmd_socket;
@@ -15,9 +19,6 @@ class Client {
 	private shared(void function(Message msg)[EventType]) functionsByEvent;
 
 	this() {
-		import std.process : executeShell;
-		import std.string : strip;
-
 		this( "sway --get-socketpath".executeShell.output.strip );
 	}
 
@@ -34,11 +35,46 @@ class Client {
 		this.stopEventListener();
 	}
 
-	Response send(Command[] cmd...) {
+	Response run(Command[] cmd...) {
 		Message reply;
 		this.cmd_socket.send(cmd.makeMessage());
 		this.cmd_socket.receive(reply);
 		return Response(reply);
+	}
+	Response run(string cmd, string[] args...) {
+		return run( Command(cmd, args) );
+	}
+
+	private Message get( PayloadType type ) {
+
+		auto msg = Message();
+		msg.type = PayloadType.GET_WORKSPACES;
+		this.cmd_socket.send(msg);
+
+		Message reply;
+		this.cmd_socket.receive(reply);
+
+		return reply;
+	}
+
+	Workspace[] getWorkspaces() {
+		return
+			parseJSON(this.get(PayloadType.GET_WORKSPACES).payload).
+			arrayNoRef.map!(a => Workspace(a)).
+			array;
+	}
+
+	Output[] getOutputs() {
+		return
+			parseJSON(this.get(PayloadType.GET_OUTPUTS).payload).
+			arrayNoRef.map!(a => Output(a)).
+			array;
+	}
+
+	Node[] getTree() {
+		return parseJSON(this.get(PayloadType.GET_TREE).payload).
+			arrayNoRef.map!(a => Node(a)).
+			array;
 	}
 
 	Response subscribe(EventType event , void function(Message msg) fn) {
@@ -73,7 +109,6 @@ class Client {
 		foreach(EventType event ; events) {
 			this.functionsByEvent[event] = fn;
 		}
-
 
 		this.event_listener = spawn(&listener, cast(shared)(this.event_socket) , this.functionsByEvent);
 

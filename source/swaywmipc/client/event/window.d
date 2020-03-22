@@ -1,5 +1,6 @@
 module swaywmipc.client.event.window;
 
+import swaywmipc.client.common : Rect;
 import swaywmipc.client.event.common;
 import swaywmipc.core;
 import std.json;

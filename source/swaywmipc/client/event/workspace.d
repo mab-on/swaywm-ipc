@@ -1,6 +1,7 @@
 module swaywmipc.client.event.workspace;
 
-import swaywmipc.client.event.common;
+import swaywmipc.client.event.common : Event;
+import swaywmipc.client.common : Rect;
 import swaywmipc.core;
 import std.json;
 
