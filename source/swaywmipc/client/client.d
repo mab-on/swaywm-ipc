@@ -77,6 +77,18 @@ class Client {
 			array;
 	}
 
+	string[] getMarks() {
+		return parseJSON(this.get(PayloadType.GET_MARKS).payload).
+			arrayNoRef.map!(a => a.str).
+			array;
+	}
+
+	string[] getBarConfig() {
+		return parseJSON(this.get(PayloadType.GET_BAR_CONFIG).payload).
+			arrayNoRef.map!(a => a.str).
+			array;
+	}
+
 	Response subscribe(EventType event , void function(Message msg) fn) {
 		return subscribe([event], fn);
 	}
