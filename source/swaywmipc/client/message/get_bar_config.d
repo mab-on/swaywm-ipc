@@ -32,7 +32,9 @@ struct BarConfig {
 		if( const(JSONValue)* v = "id" in json ) this.id = v.str;
 		if( const(JSONValue)* v = "mode" in json ) this.mode = v.str;
 		if( const(JSONValue)* v = "position" in json ) this.position = v.str;
-		if( const(JSONValue)* v = "status_command" in json ) this.status_command = v.str;
+		if( const(JSONValue)* v = "status_command" in json ) {
+			if(!v.isNull) this.status_command = v.str;
+		}
 		if( const(JSONValue)* v = "font" in json ) this.font = v.str;
 
 		if( const(JSONValue)* v = "workspace_buttons" in json ) this.workspace_buttons = v.boolean;
