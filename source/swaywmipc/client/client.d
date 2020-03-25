@@ -2,6 +2,7 @@ module swaywmipc.client.client;
 
 import swaywmipc.client.event;
 import swaywmipc.client.message;
+import swaywmipc.client.common;
 import swaywmipc.core;
 
 import std.algorithm : map;

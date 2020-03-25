@@ -29,24 +29,24 @@ struct Output {
 
 		if(json.isNull) return;
 
-		if( const(JSONValue)* v = "name" in json ) this.name = v.str;
-		if( const(JSONValue)* v = "make" in json ) this.make = v.str;
-		if( const(JSONValue)* v = "model" in json ) this.model = v.str;
-		if( const(JSONValue)* v = "serial" in json ) this.serial = v.str;
-		if( const(JSONValue)* v = "subpixel_hinting" in json ) this.subpixel_hinting = v.str;
-		if( const(JSONValue)* v = "transform" in json ) this.transform = v.str;
-		if( const(JSONValue)* v = "current_workspace" in json ) this.current_workspace = v.str;
+		if( const(JSONValue)* v = "name" in json ) { if(!v.isNull) this.name = v.str; }
+		if( const(JSONValue)* v = "make" in json ) { if(!v.isNull) this.make = v.str; }
+		if( const(JSONValue)* v = "model" in json ) { if(!v.isNull) this.model = v.str; }
+		if( const(JSONValue)* v = "serial" in json ) { if(!v.isNull) this.serial = v.str; }
+		if( const(JSONValue)* v = "subpixel_hinting" in json ) { if(!v.isNull) this.subpixel_hinting = v.str; }
+		if( const(JSONValue)* v = "transform" in json ) { if(!v.isNull) this.transform = v.str; }
+		if( const(JSONValue)* v = "current_workspace" in json ) { if(!v.isNull) this.current_workspace = v.str; }
 
-		if( const(JSONValue)* v = "active" in json ) this.active = v.boolean;
-		if( const(JSONValue)* v = "dpms" in json ) this.dpms = v.boolean;
-		if( const(JSONValue)* v = "primary" in json ) this.primary = v.boolean;
+		if( const(JSONValue)* v = "active" in json ) { if(!v.isNull) this.active = v.boolean; }
+		if( const(JSONValue)* v = "dpms" in json ) { if(!v.isNull) this.dpms = v.boolean; }
+		if( const(JSONValue)* v = "primary" in json ) { if(!v.isNull) this.primary = v.boolean; }
 
-		if( const(JSONValue)* v = "scale" in json ) this.scale = v.floating;
+		if( const(JSONValue)* v = "scale" in json ) { if(!v.isNull) this.scale = v.floating; }
 
-		if( const(JSONValue)* v = "modes" in json ) this.modes = v.arrayNoRef.map!(a => Mode(a)).array;
-		if( const(JSONValue)* v = "current_mode" in json ) this.current_mode = Mode(*v);
+		if( const(JSONValue)* v = "modes" in json ) { if(!v.isNull) this.modes = v.arrayNoRef.map!(a => Mode(a)).array; }
+		if( const(JSONValue)* v = "current_mode" in json ) { if(!v.isNull) this.current_mode = Mode(*v); }
 
-		if( const(JSONValue)* v = "rect" in json ) this.rect = Rect(*v);
+		if( const(JSONValue)* v = "rect" in json ) { if(!v.isNull) this.rect = Rect(*v); }
 	}
 
 }

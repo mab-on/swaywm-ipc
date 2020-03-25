@@ -29,25 +29,25 @@ struct BarConfig {
 	this(JSONValue json) {
 		if(json.isNull) return;
 
-		if( const(JSONValue)* v = "id" in json ) this.id = v.str;
-		if( const(JSONValue)* v = "mode" in json ) this.mode = v.str;
-		if( const(JSONValue)* v = "position" in json ) this.position = v.str;
+		if( const(JSONValue)* v = "id" in json ) { if(!v.isNull) this.id = v.str; }
+		if( const(JSONValue)* v = "mode" in json ) { if(!v.isNull) this.mode = v.str; }
+		if( const(JSONValue)* v = "position" in json ) { if(!v.isNull) this.position = v.str; }
 		if( const(JSONValue)* v = "status_command" in json ) {
-			if(!v.isNull) this.status_command = v.str;
+			if(!v.isNull) { if(!v.isNull) this.status_command = v.str; }
 		}
-		if( const(JSONValue)* v = "font" in json ) this.font = v.str;
+		if( const(JSONValue)* v = "font" in json ) { if(!v.isNull) this.font = v.str; }
 
-		if( const(JSONValue)* v = "workspace_buttons" in json ) this.workspace_buttons = v.boolean;
-		if( const(JSONValue)* v = "binding_mode_indicator" in json ) this.binding_mode_indicator = v.boolean;
-		if( const(JSONValue)* v = "verbose" in json ) this.verbose = v.boolean;
+		if( const(JSONValue)* v = "workspace_buttons" in json ) { if(!v.isNull) this.workspace_buttons = v.boolean; }
+		if( const(JSONValue)* v = "binding_mode_indicator" in json ) { if(!v.isNull) this.binding_mode_indicator = v.boolean; }
+		if( const(JSONValue)* v = "verbose" in json ) { if(!v.isNull) this.verbose = v.boolean; }
 
-		if( const(JSONValue)* v = "bar_height" in json ) this.bar_height = v.integer;
-		if( const(JSONValue)* v = "status_padding" in json ) this.status_padding = v.integer;
-		if( const(JSONValue)* v = "status_edge_padding" in json ) this.status_edge_padding = v.integer;
+		if( const(JSONValue)* v = "bar_height" in json ) { if(!v.isNull) this.bar_height = v.integer; }
+		if( const(JSONValue)* v = "status_padding" in json ) { if(!v.isNull) this.status_padding = v.integer; }
+		if( const(JSONValue)* v = "status_edge_padding" in json ) { if(!v.isNull) this.status_edge_padding = v.integer; }
 
-		if( const(JSONValue)* v = "gaps" in json ) this.gaps = Gaps(*v);
+		if( const(JSONValue)* v = "gaps" in json ) { if(!v.isNull) this.gaps = Gaps(*v); }
 
-		if( const(JSONValue)* v = "colors" in json ) this.colors = Colors(*v);
+		if( const(JSONValue)* v = "colors" in json ) { if(!v.isNull) this.colors = Colors(*v); }
 	}
 
 }
@@ -62,10 +62,10 @@ struct Gaps {
 	this(JSONValue json) {
 		if(json.isNull) return;
 
-		if( const(JSONValue)* v = "top" in json ) this.top = v.integer;
-		if( const(JSONValue)* v = "right" in json ) this.right = v.integer;
-		if( const(JSONValue)* v = "bottom" in json ) this.bottom = v.integer;
-		if( const(JSONValue)* v = "left" in json ) this.left = v.integer;
+		if( const(JSONValue)* v = "top" in json ) { if(!v.isNull) this.top = v.integer; }
+		if( const(JSONValue)* v = "right" in json ) { if(!v.isNull) this.right = v.integer; }
+		if( const(JSONValue)* v = "bottom" in json ) { if(!v.isNull) this.bottom = v.integer; }
+		if( const(JSONValue)* v = "left" in json ) { if(!v.isNull) this.left = v.integer; }
 	}
 }
 
@@ -96,27 +96,27 @@ struct Colors {
 	this(JSONValue json) {
 		if(json.isNull) return;
 
-		if( const(JSONValue)* v = "background" in json ) this.background = Color(*v);
-		if( const(JSONValue)* v = "statusline" in json ) this.statusline  = Color(*v);
-		if( const(JSONValue)* v = "separator" in json ) this.separator  = Color(*v);
-		if( const(JSONValue)* v = "focused_background" in json ) this.focused_background  = Color(*v);
-		if( const(JSONValue)* v = "focused_statusline" in json ) this.focused_statusline  = Color(*v);
-		if( const(JSONValue)* v = "focused_separator" in json ) this.focused_separator  = Color(*v);
-		if( const(JSONValue)* v = "focused_workspace_text" in json ) this.focused_workspace_text  = Color(*v);
-		if( const(JSONValue)* v = "focused_workspace_bg" in json ) this.focused_workspace_bg  = Color(*v);
-		if( const(JSONValue)* v = "focused_workspace_border" in json ) this.focused_workspace_border  = Color(*v);
-		if( const(JSONValue)* v = "active_workspace_text" in json ) this.active_workspace_text  = Color(*v);
-		if( const(JSONValue)* v = "active_workspace_bg" in json ) this.active_workspace_bg  = Color(*v);
-		if( const(JSONValue)* v = "active_workspace_border" in json ) this.active_workspace_border  = Color(*v);
-		if( const(JSONValue)* v = "inactive_workspace_text" in json ) this.inactive_workspace_text  = Color(*v);
-		if( const(JSONValue)* v = "inactive_workspace_bg" in json ) this.inactive_workspace_bg  = Color(*v);
-		if( const(JSONValue)* v = "inactive_workspace_border" in json ) this.inactive_workspace_border  = Color(*v);
-		if( const(JSONValue)* v = "urgent_workspace_text" in json ) this.urgent_workspace_text  = Color(*v);
-		if( const(JSONValue)* v = "urgent_workspace_bg" in json ) this.urgent_workspace_bg  = Color(*v);
-		if( const(JSONValue)* v = "urgent_workspace_border" in json ) this.urgent_workspace_border  = Color(*v);
-		if( const(JSONValue)* v = "binding_mode_text" in json ) this.binding_mode_text  = Color(*v);
-		if( const(JSONValue)* v = "binding_mode_bg" in json ) this.binding_mode_bg  = Color(*v);
-		if( const(JSONValue)* v = "binding_mode_border" in json ) this.binding_mode_border  = Color(*v);
+		if( const(JSONValue)* v = "background" in json ) { if(!v.isNull) this.background = Color(*v); }
+		if( const(JSONValue)* v = "statusline" in json ) { if(!v.isNull) this.statusline  = Color(*v); }
+		if( const(JSONValue)* v = "separator" in json ) { if(!v.isNull) this.separator  = Color(*v); }
+		if( const(JSONValue)* v = "focused_background" in json ) { if(!v.isNull) this.focused_background  = Color(*v); }
+		if( const(JSONValue)* v = "focused_statusline" in json ) { if(!v.isNull) this.focused_statusline  = Color(*v); }
+		if( const(JSONValue)* v = "focused_separator" in json ) { if(!v.isNull) this.focused_separator  = Color(*v); }
+		if( const(JSONValue)* v = "focused_workspace_text" in json ) { if(!v.isNull) this.focused_workspace_text  = Color(*v); }
+		if( const(JSONValue)* v = "focused_workspace_bg" in json ) { if(!v.isNull) this.focused_workspace_bg  = Color(*v); }
+		if( const(JSONValue)* v = "focused_workspace_border" in json ) { if(!v.isNull) this.focused_workspace_border  = Color(*v); }
+		if( const(JSONValue)* v = "active_workspace_text" in json ) { if(!v.isNull) this.active_workspace_text  = Color(*v); }
+		if( const(JSONValue)* v = "active_workspace_bg" in json ) { if(!v.isNull) this.active_workspace_bg  = Color(*v); }
+		if( const(JSONValue)* v = "active_workspace_border" in json ) { if(!v.isNull) this.active_workspace_border  = Color(*v); }
+		if( const(JSONValue)* v = "inactive_workspace_text" in json ) { if(!v.isNull) this.inactive_workspace_text  = Color(*v); }
+		if( const(JSONValue)* v = "inactive_workspace_bg" in json ) { if(!v.isNull) this.inactive_workspace_bg  = Color(*v); }
+		if( const(JSONValue)* v = "inactive_workspace_border" in json ) { if(!v.isNull) this.inactive_workspace_border  = Color(*v); }
+		if( const(JSONValue)* v = "urgent_workspace_text" in json ) { if(!v.isNull) this.urgent_workspace_text  = Color(*v); }
+		if( const(JSONValue)* v = "urgent_workspace_bg" in json ) { if(!v.isNull) this.urgent_workspace_bg  = Color(*v); }
+		if( const(JSONValue)* v = "urgent_workspace_border" in json ) { if(!v.isNull) this.urgent_workspace_border  = Color(*v); }
+		if( const(JSONValue)* v = "binding_mode_text" in json ) { if(!v.isNull) this.binding_mode_text  = Color(*v); }
+		if( const(JSONValue)* v = "binding_mode_bg" in json ) { if(!v.isNull) this.binding_mode_bg  = Color(*v); }
+		if( const(JSONValue)* v = "binding_mode_border" in json ) { if(!v.isNull) this.binding_mode_border  = Color(*v); }
 	}
 }
 

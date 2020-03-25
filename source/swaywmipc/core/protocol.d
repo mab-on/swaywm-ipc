@@ -48,6 +48,10 @@ enum PayloadType : uint {
 struct Message {
 	PayloadType type;
 	string payload;
+
+	EventType eventType() {
+		return cast(EventType)(this.type);
+	}
 }
 
 ubyte[] serialize(Message msg) {

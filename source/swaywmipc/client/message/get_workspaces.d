@@ -1,32 +1,7 @@
 module swaywmipc.client.message.get_workspaces;
 
-import swaywmipc.client.common : Rect;
+import swaywmipc.client.common : Workspace;
 import std.json : JSONValue;
-
-struct Workspace {
-	size_t num;
-	string name;
-	bool visible;
-	bool focused;
-	bool urgent;
-	Rect rect;
-	string output;
-
-	this(JSONValue json) {
-		if(json.isNull) return;
-
-		if( const(JSONValue)* v = "num" in json ) this.num = v.integer;
-
-		if( const(JSONValue)* v = "name" in json ) this.name = v.str;
-		if( const(JSONValue)* v = "output" in json ) this.output = v.str;
-
-		if( const(JSONValue)* v = "visible" in json ) this.visible = v.boolean;
-		if( const(JSONValue)* v = "focused" in json ) this.focused = v.boolean;
-		if( const(JSONValue)* v = "urgent" in json ) this.urgent = v.boolean;
-
-		if( const(JSONValue)* v = "rect" in json ) this.rect = Rect(*v);
-	}
-}
 
 unittest {
 	import std.algorithm : map;
